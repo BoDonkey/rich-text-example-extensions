@@ -2,3 +2,5 @@ package-lock.json
 npm-debug.log
 node_modules
 
+numbered-bookmarks.json
+.DS_Store
