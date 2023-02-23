@@ -1,6 +1,6 @@
-import Typography from '@tiptap/extension-typography';
+import { Smilie } from '../../../lib/smilies.js';
 export default (options) => {
-  return Typography.extend({
+  return Smilie.extend({
     addOptions() {
       return {
         ...this.parent?.()
