@@ -1,18 +1,19 @@
 module.exports = {
   extend: '@apostrophecms/rich-text-widget',
   options: {
-    typographyConfig: {}
+    videoConfig: {}
   },
   init(self) {
     self.enableBrowserData();
+    self.addEditorTools();
   },
   methods(self) {
     return {
       getBrowserData(req) {
         return {
-          ttTypoConfig: self.options.typographyConfig
+          ttYTConfig: self.options.videoConfig
         };
-      }
-    };
+    }
   }
-};
+  
+}
