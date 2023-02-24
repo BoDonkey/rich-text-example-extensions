@@ -125,17 +125,17 @@ const replacementEmojis = [
   { find: /\/shrug $/, replace: '¯\\_(ツ)_/¯'},
 ];
 
-const rules = [];
+const inputRules = [];
 
 
 for (let index = 0; index < replacementEmojis.length; index++) {
-  rules[index] = textInputRule(replacementEmojis[index]);
+  inputRules[index] = textInputRule(replacementEmojis[index]);
 }
 
 const Smilie = Extension.create({
   name: 'smilie',
   addInputRules() {
-    return rules;
+    return inputRules;
   },
 });
 

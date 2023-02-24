@@ -1,5 +1,5 @@
 import Typography from '@tiptap/extension-typography';
 export default (options) => {
-  const rules = options.rules || {};
-  return Typography.configure(rules);
+  const configuration = self.apos.modules['@apostrophecms/typography'].defaultOptions.rules;
+  return Typography.configure(configuration);
 };
