@@ -13,7 +13,16 @@ module.exports = {
         return {
           ttYTConfig: self.options.videoConfig
         };
-    }
+      },
+      addEditorTools() {
+        self.options.editorTools = {
+          ...self.options.editorTools,
+          youtube: {
+            component: 'TiptapYoutube',
+            label: 'Youtube',
+            command: 'setYoutubeVideo'
+          }
+        };
+    };
   }
-  
-}
+};
