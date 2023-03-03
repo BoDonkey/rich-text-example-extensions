@@ -1,18 +1,21 @@
 module.exports = {
-  extend: '@apostrophecms/rich-text-widget',
+  improve: '@apostrophecms/rich-text-widget',
   options: {
     typographyConfig: {}
   },
   init(self) {
     self.enableBrowserData();
   },
-  methods(self) {
+  extendMethods(self) {
     return {
-      getBrowserData(req) {
-        return {
+      getBrowserData(_super, req) {
+        const initialData = _super(req);
+        const finalData = {
+          ...initialData,
           ttTypoConfig: self.options.typographyConfig
-        };
+        }
+        return finalData;
       }
-    };
+    }
   }
 };
