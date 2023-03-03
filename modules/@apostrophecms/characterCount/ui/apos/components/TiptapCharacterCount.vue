@@ -21,7 +21,7 @@
         menu-placement="bottom-start"
       >
       <div class="character-count" v-if="editor">
-      {{ editor.storage.characterCount.characters() }}/{{ limit }} characters
+      {{ editor.storage.characterCount.characters() }} characters
       <br>
       {{ editor.storage.characterCount.words() }} words
     </div>
