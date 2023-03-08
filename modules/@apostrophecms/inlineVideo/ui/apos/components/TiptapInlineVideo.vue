@@ -54,7 +54,7 @@
 import AposEditorMixin from 'Modules/@apostrophecms/modal/mixins/AposEditorMixin';
 
 export default {
-  name: 'TiptapYoutube',
+  name: 'TiptapInlineVideo',
   mixins: [ AposEditorMixin ],
   props: {
     name: {
