@@ -1,19 +1,18 @@
 import { Node, nodePasteRule, mergeAttributes } from '@tiptap/core';
 
-const VIMEO_REGEX = /^\/\/player\.vimeo\.com\/video\/(\d+)/;
-const VIMEO_REGEX_GLOBAL =/^\/\/player\.vimeo\.com\/video\/(\d+)/g
-const YOUTUBE_REGEX = /^\/\/www\.youtube\.com\/embed\/([\w-]{11})/;
-const YOUTUBE_REGEX_GLOBAL = /^\/\/www\.youtube\.com\/embed\/([\w-]{11})/g;
+const vimeo_embed_id = /^\/\/player\.vimeo\.com\/video\/(\d+)/;
+const youtube_embed_id = /^\/\/www\.(youtube\.com|youtu\.be)\/embed\/([\w-]{11})/;
+const VIDEO_REGEX_GLOBAL = /(^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)(?!.*\/channel\/)(?!\/@)(.+)?$)|(^(https?:\/\/)?(www\.)?(vimeo\.com)(?!\/@)(.+)?$)/g;
 
 const returnValidId = (url) => {
-  if (embeddedLink.startsWith('https:') && VIMEO_REGEX.test(embeddedLink)) {
-    const vimeoMatch = embeddedLink.match(VIMEO_REGEX);
+  if (embeddedLink.startsWith('https:') && vimeo_embed_id.test(embeddedLink)) {
+    const vimeoMatch = embeddedLink.match(vimeo_embed_id);
     return { service: 'Vimeo', id: vimeoMatch[1] };
   } else if (
     embeddedLink.startsWith('https:') &&
-    YOUTUBE_REGEX.test(embeddedLink)
+    youtube_embed_id.test(embeddedLink)
   ) {
-    const youtubeMatch = embeddedLink.match(YOUTUBE_REGEX);
+    const youtubeMatch = embeddedLink.match(youtube_embed_id);
     return { service: 'YouTube', id: youtubeMatch[1] };
   } else {
     return false;
@@ -203,7 +202,7 @@ const Youtube = Node.create({
     }
     return [
       nodePasteRule({
-        find: YOUTUBE_REGEX_GLOBAL,
+        find: VIDEO_REGEX_GLOBAL,
         type: this.type,
         getAttributes: (match) => {
           return { src: match.input };
