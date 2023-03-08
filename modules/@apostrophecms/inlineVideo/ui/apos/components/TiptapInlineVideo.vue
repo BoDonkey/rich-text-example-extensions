@@ -75,8 +75,7 @@ export default {
     return {
       generation: 1,
       href: null,
-      width: null,
-      height: null,
+      size: null,
       active: false,
       hasLinkOnOpen: false,
       triggerValidation: false,
@@ -88,28 +87,50 @@ export default {
         {
           name: 'src',
           // TODO: i18n
-          label: 'YouTub embedded URL',
+          label: 'Embedded URL link',
           type: 'url',
           required: true
         },
         {
-          name: 'width',
-          lable: 'Width',
-          type: 'range',
-          min: 320,
-          max: 1024,
-          step: 1,
-          def: 640
+          name: 'size',
+          lable: 'Size',
+          type: 'select',
+          def: 3,
+          choices: [
+            {
+              label: '320x240',
+              value: 1
+            },
+            {
+              label: '560x315',
+              value: 2
+            },
+            {
+              label: '640x360',
+              value: 3
+            },
+            {
+              label: '853x480',
+              value: 4
+            },
+            {
+              label: '1215x683',
+              value: 5
+            },
+            {
+              label: '1229x691',
+              value: 6
+            },
+            {
+              label: '1280x720',
+              value: 7
+            },
+            {
+              label: '1920x1080',
+              value: 8
+            }
+          ]
         },
-        {
-          name: 'height',
-          lable: 'Height',
-          type: 'range',
-          min: 180,
-          max: 720,
-          step: 1,
-          def: 360
-        }
       ]
     };
   },
@@ -170,10 +191,14 @@ export default {
         if (this.docFields.hasErrors) {
           return;
         }
-        this.editor.commands.setYoutubeVideo({
+        const widths = [ 320, 560, 640, 853, 1215, 1229, 1280, 1920 ];
+        const heights = [ 240, 315, 360, 480, 683, 691, 720, 1080 ];
+        this.editor.commands.setInlineVideo({
           src: this.docFields.data.src,
-          width: Math.max(320, parseInt(this.docFields.data.width, 10)) || 640,
-          height: Math.max(180, parseInt(this.docFields.data.height, 10)) || 480
+          // TODO convert select field to individual sizes
+          width: widths[this.docFields.data.select] || 640,
+          height: heights[this.docFields.data.select] || 360,
+          sizes: this.docFields.data.select
         });
         this.close();
       });
