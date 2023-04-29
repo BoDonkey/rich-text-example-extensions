@@ -1,48 +1,40 @@
 <template>
-  <div class="apos-link-control">
+  <div class="apos-cc-control">
     <AposButton
-      type="rich-text"
-      @click="takeAction"
-      :class="{ 'apos-is-active': buttonActive }"
-      :label="tool.label"
-      :modifiers="['no-border', 'no-motion']"
+    type="rich-text"
+    @click="takeAction"
+    :class="{ 'apos-is-active': buttonActive }"
+    :label="tool.label"
+    :modifiers="['no-border', 'no-motion']"
     />
     <div
       v-if="active"
       v-click-outside-element="close"
-      class="apos-popover apos-link-control__dialog"
-      x-placement="bottom"
+      class="apos-popover apos-cc-control__dialog" x-placement="bottom"
       :class="{
         'apos-is-triggered': active,
         'apos-has-selection': hasSelection
       }"
     >
-      <AposContextMenuDialog
-        menu-placement="bottom-start"
-      >
-      <div class="character-count" v-if="editor">
-      {{ editor.storage.characterCount.characters() }}{{ editorLimitText }} characters
-      <br>
-      {{ editor.storage.characterCount.words() }} words
-    </div>
-        <footer class="apos-link-control__footer">
-          <AposButton
-            type="primary" label="apostrophe:cancel"
-            @click="close"
-            :modifiers="formModifiers"
-          />
+    <div class="character-count" v-if="editor">
+      <h3>Document stats</h3>
+          {{ editor.storage.characterCount.characters() }}{{ editorLimitText }} characters
+          <br>
+          {{ editor.storage.characterCount.words() }} words
+        </div>
+        <footer class="apos-cc-control__footer">
+          <AposButton type="primary" label="apostrophe:cancel" @click="close" :modifiers="formModifiers" />
         </footer>
-      </AposContextMenuDialog>
     </div>
   </div>
 </template>
 
 <script>
-import AposEditorMixin from 'Modules/@apostrophecms/modal/mixins/AposEditorMixin';
+//import AposEditorMixin from 'Modules/@apostrophecms/modal/mixins/AposEditorMixin';
 
 export default {
   name: 'TiptapCharacterCount',
-  mixins: [ AposEditorMixin ],
+  //mixins: [AposEditorMixin],
   props: {
     name: {
       type: String,
@@ -66,7 +58,7 @@ export default {
       docFields: {
         data: {}
       },
-      formModifiers: [ 'small', 'margin-micro' ]
+      formModifiers: ['small', 'margin-micro']
     };
   },
   computed: {
@@ -82,9 +74,6 @@ export default {
       const { from, to } = selection;
       const text = state.doc.textBetween(from, to, '');
       return text !== '';
-    },
-    schema() {
-      return this.originalSchema;
     },
     editorLimitText() {
       if (this.limit) {
@@ -142,7 +131,7 @@ export default {
       }
     },
     async populateFields() {
-        this.generation++;
+      this.generation++;
     }
   }
 };
@@ -150,50 +139,46 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .apos-link-control {
-    position: relative;
-    display: inline-block;
-  }
+.apos-cc-control {
+  position: relative;
+  display: inline-block;
+}
 
-  .apos-link-control__dialog {
-    z-index: $z-index-modal;
-    position: absolute;
-    top: calc(100% + 5px);
-    left: -15px;
-    width: 250px;
-    opacity: 0;
-    pointer-events: none;
-  }
+.apos-cc-control__dialog {
+  z-index: $z-index-modal;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: -15px;
+  width: 250px;
+  opacity: 1;
+  pointer-events: none;
+  border: 1px solid var(--a-base-3);
+  border-radius: 3px;
+  background-color: white;
+}
 
-  .apos-link-control__dialog.apos-is-triggered.apos-has-selection {
-    opacity: 1;
-    pointer-events: auto;
-  }
+.character-count {
+  padding: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
 
-  .apos-is-active {
-    background-color: var(--a-base-7);
-  }
+.apos-cc-control__dialog.apos-is-triggered.apos-has-selection {
+  opacity: 1;
+  pointer-events: auto;
+}
 
-  .apos-link-control__footer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-  }
+.apos-is-active {
+  background-color: var(--a-base-7);
+}
 
-  .apos-link-control__footer .apos-button__wrapper {
-    margin-left: 7.5px;
-  }
+.apos-cc-control__footer {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 10px 10px 0;
+}
 
-  .apos-link-control__remove {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  // special schema style for this use
-  .apos-link-control ::v-deep .apos-field--target {
-    .apos-field__label {
-      display: none;
-    }
-  }
-
+.apos-cc-control__footer .apos-button__wrapper {
+  margin-left: 7.5px;
+}
 </style>
