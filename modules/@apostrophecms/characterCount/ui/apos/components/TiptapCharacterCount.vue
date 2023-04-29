@@ -81,6 +81,7 @@ export default {
       }
       return '';
     }
+  }
   },
   watch: {
     active(newVal) {

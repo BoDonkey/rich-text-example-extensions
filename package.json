@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "@tiptap/extension-character-count": "^2.0.0-beta.220",
-    "@tiptap/extension-typography": "^2.0.0-beta.217",
-    "@tiptap/extension-youtube": "^2.0.0-beta.218"
+    "@tiptap/extension-typography": "^2.0.0-beta.217"
   }
 }
