@@ -3,9 +3,6 @@ module.exports = {
   options: {
     characterConfig: {}
   },
-  init(self) {
-    self.enableBrowserData();
-  },
   extendMethods(self) {
     return {
       getBrowserData(_super, req) {

@@ -3,9 +3,6 @@ module.exports = {
   options: {
     smilieConfig: {}
   },
-  init(self) {
-    self.enableBrowserData();
-  },
   extendMethods(self) {
     return {
       getBrowserData(_super, req) {
