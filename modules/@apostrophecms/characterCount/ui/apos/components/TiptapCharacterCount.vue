@@ -21,7 +21,7 @@
         menu-placement="bottom-start"
       >
       <div class="character-count" v-if="editor">
-      {{ editor.storage.characterCount.characters() }} characters
+      {{ editor.storage.characterCount.characters() }}{{ editorLimitText }} characters
       <br>
       {{ editor.storage.characterCount.words() }} words
     </div>
@@ -85,7 +85,14 @@ export default {
     },
     schema() {
       return this.originalSchema;
+    },
+    editorLimitText() {
+      if (this.limit) {
+        return `/${this.limit}`;
+      }
+      return '';
     }
+  }
   },
   watch: {
     active(newVal) {
@@ -139,6 +146,7 @@ export default {
     }
   }
 };
+
 </script>
 
 <style lang="scss" scoped>
