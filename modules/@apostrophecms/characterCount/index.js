@@ -21,6 +21,13 @@ module.exports = {
           ttCCConfig: self.options.characterConfig
         }
         return finalData;
+      },
+      aposTiptapExtensions(_super) {
+        const extensions = _super();
+        return [  
+          ...extensions,
+          ...((({styles, ...editorOptions}) => editorOptions)(this.editorOptions))
+        ];
       }
     }
   }

@@ -1,5 +1,7 @@
 import Typography from '@tiptap/extension-typography';
 export default (options) => {
-  const configuration = self.apos.modules['@apostrophecms/rich-text-widget'].ttTypoConfig || {};
+  const perAreaConfig = options.typographyConfig || {};
+  const globalConfig = self.apos.modules['@apostrophecms/rich-text-widget'].ttTypoConfig || {};
+  const configuration = Object.assign({}, globalConfig, perAreaConfig);
   return Typography.configure(configuration);
 };
