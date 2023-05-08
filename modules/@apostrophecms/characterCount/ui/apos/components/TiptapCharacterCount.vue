@@ -23,7 +23,7 @@
           {{ editor.storage.characterCount.words() }} words
         </div>
         <footer class="apos-cc-control__footer">
-          <AposButton type="primary" label="apostrophe:cancel" @click="close" :modifiers="formModifiers" />
+          <AposButton type="primary" label="apostrophe:close" @click="close" :modifiers="formModifiers" />
         </footer>
     </div>
   </div>
@@ -40,6 +40,10 @@ export default {
       type: String,
       required: true
     },
+    options: {
+      type: Object,
+      required: true
+    },
     tool: {
       type: Object,
       required: true
@@ -52,7 +56,6 @@ export default {
   data() {
     return {
       generation: 1,
-      limit: null,
       active: false,
       triggerValidation: false,
       docFields: {
@@ -62,6 +65,12 @@ export default {
     };
   },
   computed: {
+    moduleOptions() {
+      return apos.modules[apos.area.widgetManagers['@apostrophecms/rich-text']].ttCCConfig;
+    },
+    widgetOptions() {
+      return this.options.characterConfig;
+    },
     buttonActive() {
       return this.active;
     },
@@ -76,12 +85,12 @@ export default {
       return text !== '';
     },
     editorLimitText() {
-      if (this.limit) {
-        return `/${this.limit}`;
+      if (this.moduleOptions?.limit || this.widgetOptions?.limit) {
+        const limit = this.widgetOptions.limit ? this.widgetOptions.limit : this.moduleOptions.limit;
+        return `/${limit}`;
       }
       return '';
     }
-  }
   },
   watch: {
     active(newVal) {
@@ -135,7 +144,6 @@ export default {
     }
   }
 };
-
 </script>
 
 <style lang="scss" scoped>

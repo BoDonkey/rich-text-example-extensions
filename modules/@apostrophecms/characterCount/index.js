@@ -1,7 +1,7 @@
 module.exports = {
   improve: '@apostrophecms/rich-text-widget',
   options: {
-    characterConfig: {}
+    name: '@apostrophecms/characterCount'
   },
   extendMethods(self) {
     return {
