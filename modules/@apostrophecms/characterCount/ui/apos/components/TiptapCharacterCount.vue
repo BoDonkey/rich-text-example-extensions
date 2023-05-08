@@ -85,8 +85,7 @@ export default {
       return text !== '';
     },
     editorLimitText() {
-      if (this.moduleOptions.limit || this.widgetOptions.limit) {
-        console.log('this.widgetOptions.limit', this.widgetOptions, this.moduleOptions);
+      if (this.moduleOptions?.limit || this.widgetOptions?.limit) {
         const limit = this.widgetOptions.limit ? this.widgetOptions.limit : this.moduleOptions.limit;
         return `/${limit}`;
       }

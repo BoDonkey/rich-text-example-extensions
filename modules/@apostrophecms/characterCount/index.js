@@ -1,7 +1,7 @@
 module.exports = {
   improve: '@apostrophecms/rich-text-widget',
   options: {
-    characterConfig: {}
+    name: '@apostrophecms/characterCount'
   },
   extendMethods(self) {
     return {
@@ -21,13 +21,6 @@ module.exports = {
           ttCCConfig: self.options.characterConfig
         }
         return finalData;
-      },
-      aposTiptapExtensions(_super) {
-        const extensions = _super();
-        return [  
-          ...extensions,
-          ...((({styles, ...editorOptions}) => editorOptions)(this.editorOptions))
-        ];
       }
     }
   }
