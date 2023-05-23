@@ -25,7 +25,7 @@ const replacementEmojis = [
   { find: /8-?\)$/, replace: '😎' },
   { find: /B-?D$/, replace: '🤓' },
   { find: /<[/\\]3$/, replace: '💔' },
-  { find: /<:)$/, replace: '💡' },
+  { find: /<:\)$/, replace: '💡' },
   { find: /:-{}<-<$/, replace: '🌈' },
   { find: /:[3]$/, replace: '😺' },
 { find: /=\^_[\^~]*=$/, replace: '😸' },
