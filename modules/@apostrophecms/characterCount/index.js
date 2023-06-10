@@ -15,9 +15,19 @@ module.exports = {
           }
         };
 
+        const finalInsert = {
+          ...initialData.insertMenu,
+          characterCount: {
+            label: 'CC',
+            descriptin: 'Character count',
+            component: 'TiptapCharacterCountBox'
+        }
+      };
+
         const finalData = {
           ...initialData,
           tools: finalTools,
+          insertMenu: finalInsert,
           ttCCConfig: self.options.characterConfig
         }
         return finalData;

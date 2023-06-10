@@ -21,7 +21,7 @@
 <script>
 
 export default {
-  name: 'AposImageControlDialog',
+  name: 'TiptapCharacterCountBox',
   props: {
     editor: {
       type: Object,
