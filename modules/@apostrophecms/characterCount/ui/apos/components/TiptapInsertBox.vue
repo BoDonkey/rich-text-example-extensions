@@ -1,60 +1,41 @@
 <template>
-  <div class="apos-cc-control">
-    <AposButton
-    type="rich-text"
-    @click="takeAction"
-    :class="{ 'apos-is-active': buttonActive }"
-    :label="tool.label"
-    :modifiers="['no-border', 'no-motion']"
-    />
-    <div
-      v-if="active"
-      v-click-outside-element="close"
-      class="apos-popover apos-cc-control__dialog" x-placement="bottom"
-      :class="{
-        'apos-is-triggered': active,
-        'apos-has-selection': hasSelection
-      }"
-    >
-    <div class="character-count" v-if="editor">
-      <h3>Document stats</h3>
-          {{ editor.storage.characterCount.characters() }}{{ editorLimitText }} characters
-          <br>
-          {{ editor.storage.characterCount.words() }} words
-        </div>
-        <footer class="apos-cc-control__footer">
-          <AposButton type="primary" label="apostrophe:close" @click="close" :modifiers="formModifiers" />
-        </footer>
-    </div>
+  <div v-if="active" v-click-outside-element="cancel" class="apos-popover tiptap-character-count__dialog"
+    x-placement="bottom" :class="{
+      'apos-is-triggered': active,
+      'apos-has-selection': true
+    }">
+    <AposContextMenuDialog menu-placement="bottom-start">
+      <div class="character-count" v-if="editor">
+        <h3>Document stats</h3>
+        {{ editor.storage.characterCount.characters() }}{{ editorLimitText }} characters
+        <br>
+        {{ editor.storage.characterCount.words() }} words
+      </div>
+      <footer class="apos-cc-control__footer">
+        <AposButton type="primary" label="apostrophe:close" @click="close" :modifiers="formModifiers" />
+      </footer>
+    </AposContextMenuDialog>
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'TiptapCharacterCount',
+  name: 'AposImageControlDialog',
   props: {
-    name: {
-      type: String,
-      required: true
-    },
-    options: {
-      type: Object,
-      required: true
-    },
-    tool: {
-      type: Object,
-      required: true
-    },
     editor: {
       type: Object,
       required: true
+    },
+    active: {
+      type: Boolean,
+      required: true
     }
   },
+  emits: ['before-commands', 'done', 'cancel'],
   data() {
     return {
       generation: 1,
-      active: false,
       triggerValidation: false,
       docFields: {
         data: {}
@@ -142,6 +123,10 @@ export default {
     }
   }
 };
+
+function getOptions() {
+  return apos.modules['@apostrophecms/rich-text-widget'];
+}
 </script>
 
 <style lang="scss" scoped>
@@ -186,5 +171,53 @@ export default {
 
 .apos-cc-control__footer .apos-button__wrapper {
   margin-left: 7.5px;
+}
+.apos-image-control {
+  position: relative;
+  display: inline-block;
+}
+
+.tiptap-character-count__dialog {
+  z-index: $z-index-modal;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: -15px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.apos-context-menu__dialog {
+  width: 500px;
+}
+
+.apos-image-control__dialog.apos-is-triggered {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.apos-is-active {
+  background-color: var(--a-base-7);
+}
+
+.apos-image-control__footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.apos-image-control__footer .apos-button__wrapper {
+  margin-left: 7.5px;
+}
+
+.apos-image-control__remove {
+  display: flex;
+  justify-content: flex-end;
+}
+
+// special schema style for this use
+.apos-image-control ::v-deep .apos-field--target {
+  .apos-field__label {
+    display: none;
+  }
 }
 </style>
