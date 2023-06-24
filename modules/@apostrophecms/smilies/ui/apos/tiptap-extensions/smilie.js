@@ -1,4 +1,4 @@
-import { Smilie } from '../../../lib/extension-smilies.js';
+import { Smilie } from '../../../lib/extension-emojis.js';
 export default (options) => {
   return Smilie.extend({});
 };
