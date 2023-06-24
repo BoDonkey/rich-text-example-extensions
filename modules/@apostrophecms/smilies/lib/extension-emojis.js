@@ -1,7 +1,6 @@
 import { textInputRule, Extension } from '@tiptap/core';
 
 const replacementEmojis = [
-  {
     { find: /:100$/, replace: '\u{1f4af}'},
     { find: /:1234$/, replace: '\u{1f522}'},
     { find: /:grinning$/, replace: '\u{1f600}'},
