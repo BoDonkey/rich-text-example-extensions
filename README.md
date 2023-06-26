@@ -15,11 +15,11 @@
   </p>
 </div>
 
-This module bundle adds four new extensions to the `@apostrophecms/rich-text-widget`. While you may find these new extensions useful, they are also a great learning resource and the basis for a series of upcoming tutorials.
+This module bundle adds three new extensions to the `@apostrophecms/rich-text-widget`. While you may find these new extensions useful, they are also a great learning resource and the basis for a series of upcoming tutorials.
 
 The first extension, `@apostrophecms/typography` adds a whole series of autocomplete actions to your editor. One example, typing `(tm)` will autoconvert to `™`. For a whole list check out the [documentation](https://tiptap.dev/api/extensions/typography). Wow! Cool! Neat! But... why? This extension shows how to take an existing extension, that doesn't require a new button or any other control element, and add it to the rich text editor.
 
-The second extension, `@apostrophecms/smilies` adds a host of keyboard shortcuts for smilie emojis, plus my favorite non-emoji ( `/shrug `, `¯\_(ツ)_/¯`). You can see the full list in [the code](modules/@apostrophecms/smilies/lib/smilies.js). Wow! Cool! Neat! But... isn't there a keyboard shortcut for that now? Yup, but this extension is a great way to learn how to create your own small extension and add it to the rich-text-widget!
+The second extension, `@apostrophecms/smilies` adds a host of keyboard shortcuts for smilie emojis, plus my favorite non-emoji ( `::shrug `, `¯\_(ツ)_/¯`). You can see the full list in [the code](modules/@apostrophecms/smilies/lib/smilies.js). Wow! Cool! Neat! But... isn't there a keyboard shortcut for that now? Yup, but this extension is a great way to learn how to create your own small extension and add it to the rich-text-widget!
 
 The third extension, `@apostrophecms/characterCount` allows you to display how many characters and words you have typed in your editor box. You can also limit the number of characters that can be added through the configuration. Read more about that in the [official documentation](https://tiptap.dev/api/extensions/character-count). Wow... okay, okay. Even I can't get that excited about this one. So, why? This extension will show you how to implement a new button to bring up the character count box.
 
