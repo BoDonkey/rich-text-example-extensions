@@ -9,7 +9,7 @@ module.exports = {
         const initialData = _super(req);
         const finalData = {
           ...initialData,
-          ttSmilieConfig: self.options.smilieConfig
+          aposSmilieConfig: self.options.smilieConfig
         }
         return finalData;
       }
