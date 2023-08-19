@@ -9,7 +9,7 @@ module.exports = {
         const initialData = _super(req);
         const finalData = {
           ...initialData,
-          ttTypoConfig: self.options.typographyConfig
+          aposTypoConfig: self.options.typographyConfig
         }
         return finalData;
       }
