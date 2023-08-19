@@ -19,7 +19,8 @@ module.exports = {
           ...initialData.insertMenu,
           characterCount: {
             label: 'CC',
-            descriptin: 'Character count',
+            icon: 'image-icon',
+            description: 'Character count',
             component: 'TiptapCharacterCountBox'
         }
       };
@@ -28,7 +29,7 @@ module.exports = {
           ...initialData,
           tools: finalTools,
           insertMenu: finalInsert,
-          ttCCConfig: self.options.characterConfig
+          aposCharCountConfig: self.options.charCountConfig
         }
         return finalData;
       }

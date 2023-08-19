@@ -4,3 +4,4 @@ node_modules
 
 numbered-bookmarks.json
 .DS_Store
+.vscode

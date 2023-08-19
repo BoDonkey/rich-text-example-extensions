@@ -1,11 +1,11 @@
 <template>
   <div class="apos-cc-control">
     <AposButton
-    type="rich-text"
-    @click="takeAction"
-    :class="{ 'apos-is-active': buttonActive }"
-    :label="tool.label"
-    :modifiers="['no-border', 'no-motion']"
+      type="rich-text"
+      @click="takeAction"
+      :class="{ 'apos-is-active': buttonActive }"
+      :label="tool.label"
+      :modifiers="['no-border', 'no-motion']"
     />
     <div
       v-if="active"
@@ -16,15 +16,21 @@
         'apos-has-selection': hasSelection
       }"
     >
-    <div class="character-count" v-if="editor">
-      <h3>Document stats</h3>
-          {{ editor.storage.characterCount.characters() }}{{ editorLimitText }} characters
+      <div class="character-count" v-if="editor">
+        <h3>Document stats</h3>
+        Total characters: {{ totalCharactersCount }}{{ editorLimitText }} 
+        <br>
+        Total words: {{ totalWordsCount }}
+        <br>
+        <div v-if="hasSelection">
+          Highlighted characters: {{ highlightedCharacters }}
           <br>
-          {{ editor.storage.characterCount.words() }} words
+          Highlighted words: {{ highlightedWords }}
         </div>
-        <footer class="apos-cc-control__footer">
-          <AposButton type="primary" label="apostrophe:close" @click="close" :modifiers="formModifiers" />
-        </footer>
+      </div>
+      <footer class="apos-cc-control__footer">
+        <AposButton type="primary" label="apostrophe:close" @click="close" :modifiers="formModifiers" />
+      </footer>
     </div>
   </div>
 </template>
@@ -34,10 +40,6 @@
 export default {
   name: 'TiptapCharacterCount',
   props: {
-    name: {
-      type: String,
-      required: true
-    },
     options: {
       type: Object,
       required: true
@@ -59,15 +61,22 @@ export default {
       docFields: {
         data: {}
       },
-      formModifiers: ['small', 'margin-micro']
+      formModifiers: ['small', 'margin-micro'],
+      totalCharactersCount: 0,
+      totalWordsCount: 0,
+      highlightedCharacters: 0,
+      highlightedWords: 0
     };
   },
   computed: {
     moduleOptions() {
-      return apos.modules[apos.area.widgetManagers['@apostrophecms/rich-text']].ttCCConfig;
+      return apos.modules[apos.area.widgetManagers['@apostrophecms/rich-text']].aposCharCountConfig;
     },
     widgetOptions() {
-      return this.options.characterConfig;
+      if (this.options?.charCountConfig) {
+        return this.options.charCountConfig;
+      }
+      return {};
     },
     buttonActive() {
       return this.active;
@@ -75,40 +84,39 @@ export default {
     lastSelectionTime() {
       return this.editor.view.lastSelectionTime;
     },
-    hasSelection() {
-      const { state } = this.editor;
-      const { selection } = this.editor.state;
-      const { from, to } = selection;
-      const text = state.doc.textBetween(from, to, '');
-      return text !== '';
-    },
     editorLimitText() {
       if (this.moduleOptions?.limit || this.widgetOptions?.limit) {
         const limit = this.widgetOptions.limit ? this.widgetOptions.limit : this.moduleOptions.limit;
         return `/${limit}`;
       }
       return '';
+    },
+    hasSelection() {
+      const { state } = this.editor;
+      const { selection } = this.editor.state;
+      const { from, to } = selection;
+      const text = state.doc.textBetween(from, to, '');
+      return text !== '';
     }
+  },
+  mounted() {
+    this.calculateTotalCharacters();
+    this.calculateTotalWords();
+    this.calculateHighlightedWords();
+    this.calculateHighlightedCharacters();
   },
   watch: {
     active(newVal) {
       if (newVal) {
-        this.hasLinkOnOpen = !!(this.docFields.data.src);
+        this.calculateTotalCharacters();
+        this.calculateTotalWords();
+        this.calculateHighlightedWords();
+        this.calculateHighlightedCharacters();
         window.addEventListener('keydown', this.keyboardHandler);
       } else {
         window.removeEventListener('keydown', this.keyboardHandler);
       }
     },
-    'editor.view.lastSelectionTime': {
-      handler(newVal, oldVal) {
-        this.populateFields();
-      }
-    },
-    hasSelection(newVal, oldVal) {
-      if (!newVal) {
-        this.close();
-      }
-    }
   },
   methods: {
     takeAction() {
@@ -124,22 +132,26 @@ export default {
       }
     },
     keyboardHandler(e) {
-      if (e.keyCode === 27) {
+      if (e.keyCode === 27 || e.keyCode === 13) {
         this.close();
-      }
-      if (e.keyCode === 13) {
-        if (this.docFields.data.href || e.metaKey) {
-          this.save();
-          this.close();
-          e.preventDefault();
-        } else {
-          e.preventDefault();
-        }
+        e.preventDefault();
       }
     },
     async populateFields() {
       this.generation++;
-    }
+    },
+    calculateTotalCharacters() {
+      this.totalCharactersCount = this.editor.commands.getTotalCharactersCount();
+    },
+    calculateTotalWords() {
+      this.totalWordsCount = this.editor.commands.getTotalWordsCount();
+    },
+    calculateHighlightedCharacters() {
+      this.highlightedCharacters = this.hasSelection ? this.editor.commands.getHighlightedStats('characters') : 0;
+    },
+    calculateHighlightedWords() {
+      this.highlightedWords = this.hasSelection ? this.editor.commands.getHighlightedStats('words') : 0;
+    },
   }
 };
 </script>
