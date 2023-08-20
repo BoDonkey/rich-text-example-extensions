@@ -1839,7 +1839,7 @@ const replacementEmojis = [
   { find: /:england $/, replace: '🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
   { find: /:scotland $/, replace: '🏴󠁧󠁢󠁳󠁣󠁴󠁿'},
   { find: /:wales $/, replace: '🏴󠁧󠁢󠁷󠁬󠁳󠁿'},
-  { find: /:eshrug $/, replace: '¯\\_(ツ)_/¯'}
+  { find: /:ashrug $/, replace: '¯\\_(ツ)_/¯'}
 ];
 
 const inputRules = [];
