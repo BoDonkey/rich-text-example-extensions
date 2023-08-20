@@ -7,6 +7,7 @@ module.exports = {
     return {
       getBrowserData(_super, req) {
         const initialData = _super(req);
+        // This adds the character count to the toolbar
         const finalTools = {
           ...initialData.tools,
           characterCount: {
@@ -15,16 +16,18 @@ module.exports = {
           }
         };
 
+        // This makes the character count available to be added to the insert menu
         const finalInsert = {
           ...initialData.insertMenu,
           characterCount: {
             label: 'CC',
-            icon: 'image-icon',
+            icon: 'eye-icon',
             description: 'Character count',
             component: 'TiptapCharacterCountBox'
         }
       };
 
+      // Also adds in the configuration options
         const finalData = {
           ...initialData,
           tools: finalTools,
