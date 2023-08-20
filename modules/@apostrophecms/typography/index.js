@@ -1,7 +1,7 @@
 module.exports = {
   improve: '@apostrophecms/rich-text-widget',
   options: {
-    typographyConfig: {}
+    typoConfig: {}
   },
   extendMethods(self) {
     return {
@@ -9,7 +9,7 @@ module.exports = {
         const initialData = _super(req);
         const finalData = {
           ...initialData,
-          aposTypoConfig: self.options.typographyConfig
+          aposTypoConfig: self.options.typoConfig
         }
         return finalData;
       }
