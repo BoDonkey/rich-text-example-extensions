@@ -3,24 +3,18 @@
 // Import the functions we need from tiptap core
 import { textInputRule, Extension } from '@tiptap/core';
 
-// Import a helper library for the emoji skin tones
-import emojiRegex from 'emoji-regex';
-
 // Import the list of emojis and regex for each
 import replacementEmojis from './replacementEmojis';
-
-const inputRules = [];
-const tone = 2;
-
-const convertedEmojis = changeTone(replacementEmojis, tone);
-
-for (let index = 0; index < convertedEmojis.length; index++) {
-  inputRules[index] = textInputRule(convertedEmojis[index]);
-}
 
 const Smilie = Extension.create({
   name: 'smilie',
   addInputRules() {
+    const inputRules = [];
+    const tone = this.options.tone || 2;
+    const convertedEmojis = changeTone(replacementEmojis, tone);
+    for (let index = 0; index < convertedEmojis.length; index++) {
+      inputRules[index] = textInputRule(convertedEmojis[index]);
+    }
     return inputRules;
   },
 });
@@ -41,14 +35,23 @@ function changeSkinTone(emoji, tone) {
     '\u{1F3FF}', // Dark skin tone
   ];
 
-  const regex = emojiRegex();
+  const modifier = skinTones[tone - 1];
 
-  return emoji.replace(regex, (match) => {
-    if (modifiableEmojiUnicode.includes(match)) {
-      return match + skinTones[tone - 1];
+  // Split the emoji into its individual components
+  const components = emoji.split(/(\p{Emoji}|\u{200D})/gu);
+
+  // Modify the components that can have a skin tone modifier
+  const modifiedComponents = components.map((component) => {
+    if (/\p{Emoji_Modifier_Base}/u.test(component)) {
+      // Replace existing modifier or add new one
+      const replaced = component.replace(/[\u{1F3FB}-\u{1F3FF}]/gu, '');
+      return replaced + modifier;
     }
-    return match;
+    return component;
   });
+
+  // Reassemble the modified components
+  return modifiedComponents.join('');
 }
 
 export { Smilie, Smilie as default };
