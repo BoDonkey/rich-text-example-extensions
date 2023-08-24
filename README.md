@@ -118,8 +118,8 @@ Configure the blog modules in the `app.js` file:
 ```javascript
 require('apostrophe')({
   shortName: 'my-project',
-  // Activate the bundle
-  bundles: [ '@apostrophecms/rich-text-extension' ],
+  // Activate the bundle -> subject to change with renaming/ownership change
+  bundles: [ 'typography-extension' ],
   modules: {
     // The typography module
     '@apostrophecms/typography': {},
