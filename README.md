@@ -17,6 +17,7 @@
 
 This module bundle adds three new extensions to the `@apostrophecms/rich-text-widget`. While you may find these new extensions useful, they are also a great learning resource and the basis for a series of upcoming tutorials.
 
+### Typography
 The first extension, `@apostrophecms/typography` adds a whole series of autocomplete actions to your editor. One example, typing `(tm)` will autoconvert to `™`. For a whole list check out the [documentation](https://tiptap.dev/api/extensions/typography). Note that some auto-convert rules (like fractions) won't work if you have the insert menu turned on. You can configure this module either at the project level in the `modules/@apostrophecms/rich-text-editor/index.js` file, or in the configuration section for the rich-text-widget of individual areas.
 Example:
 ```js
@@ -45,8 +46,32 @@ widgets: {
 
 Wow! Cool! Neat! But... why? Because this extension shows how to take an existing tiptap extension, that doesn't require a new button or any other control element, and add it to the rich text editor.
 
-The second extension, `@apostrophecms/smilies` adds a host of keyboard shortcuts for smilie emojis, plus my favorite non-emoji ( `:ashrug `, `¯\_(ツ)_/¯`). You can see the full list in [the code](modules/@apostrophecms/smilies/lib/smilies.js). Wow! Cool! Neat! But... isn't there a keyboard shortcut for that now? Yup, but this extension is a great way to learn how to create your own small tiptap extension and add it to the rich-text-widget!
+### Smilies 😀
+The second extension, `@apostrophecms/smilies` adds a host of keyboard shortcuts for smilie emojis, plus my favorite non-emoji ( `:ashrug `, `¯\_(ツ)_/¯`). You can see the full list in [the code](modules/@apostrophecms/smilies/lib/replacementEmojis.js). Wow! Cool! Neat! But... isn't there a keyboard shortcut for that now? Yup, but this extension is a great way to learn how to create your own small tiptap extension and add it to the rich-text-widget! You can configure this module either at the project level in the `modules/@apostrophecms/rich-text-editor/index.js` file, or in the configuration section for the rich-text-widget of individual areas to select what skin tone (1 = lightest, 5 = darkest) for the replacement emojis. Note that not all operating systems can display skin tone emojis correctly, so some may not appear as expected.
+Example:
 
+```js
+widgets: {
+  '@apostrophecms/rich-text': {
+    insert: [
+      ...
+    ],
+    toolbar: [
+      ...
+    ],
+    styles: [
+      ...
+    ],
+    smiliesConfig: {
+      tone: 2
+    }
+  },
+  '@apostrophecms/image': {},
+  '@apostrophecms/video': {}
+}
+```
+
+### Character Count
 The third extension, `@apostrophecms/characterCount` allows you to display how many characters and words you have typed in your editor box. You can either open the box from the toolbar or the insert menu. If you add it to the toolbar, it will also tell you how many characters you have highlighted. You can limit the number of characters that can be added to the editor box through the configuration.
 
 ```js
@@ -55,11 +80,13 @@ widgets: {
     insert: [
       'table',
       'image',
-      // add here to have it appear on the insert menu
+      // optionally, add here to have it appear on the insert menu
       'characterCount'
     ],
     toolbar: [
       ...
+      // optionally, add it here to have it appear on the toolbar
+      'characterCount',
     ],
     styles: [
       ...
