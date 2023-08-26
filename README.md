@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/apostrophecms/apostrophe/main/logo.svg" alt="ApostropheCMS logo" width="80" height="80">
 
-  <h1>Apostrophe Typography Extensions</h1>
+  <h1>Apostrophe Rich Text Widget Example Extensions</h1>
   <p>
     <a aria-label="Apostrophe logo" href="https://v3.docs.apostrophecms.org">
       <img src="https://img.shields.io/badge/MADE%20FOR%20Apostrophe%203-000000.svg?style=for-the-badge&logo=Apostrophe&labelColor=6516dd">
@@ -108,7 +108,7 @@ Wow... okay, okay. Even I can't get that excited about this one. So, why? This e
 To install the module, use the command line to run this command in an Apostrophe project's root directory:
 
 ```
-npm install @apostrophecms/rich-text-extension
+npm install @apostrophecms/rich-text-example-extensions
 ```
 
 ## Usage
@@ -119,7 +119,7 @@ Configure the blog modules in the `app.js` file:
 require('apostrophe')({
   shortName: 'my-project',
   // Activate the bundle -> subject to change with renaming/ownership change
-  bundles: [ 'typography-extension' ],
+  bundles: [ 'rich-text-example-extensions' ],
   modules: {
     // The typography module
     '@apostrophecms/typography': {},
