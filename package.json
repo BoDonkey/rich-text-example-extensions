@@ -1,7 +1,7 @@
 {
-  "name": "typography-extension",
+  "name": "rich-text-example-extensions",
   "version": "1.0.0",
-  "description": "Adds the typography extension to the ApostropheCMS rich-text-widget",
+  "description": "Adds new functionality to the ApostropheCMS rich-text-widget",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@tiptap/extension-character-count": "^2.0.0-beta.220",
     "@tiptap/extension-typography": "^2.0.0-beta.217",
     "emoji-regex": "^10.2.1"
   }

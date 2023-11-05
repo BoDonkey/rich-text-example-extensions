@@ -6,4 +6,4 @@ module.exports = {
   init(self) {
     console.log('👋 from the rich text widget extension!');
   }
-}
+};
