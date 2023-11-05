@@ -1,5 +1,5 @@
 <template>
-  <div v-if="active" v-click-outside-element="close" class="apos-popover tiptap-character-count__dialog"
+  <div v-if="active" v-click-outside-element="close" class="apos-popover apos-cc-insert__dialog"
     x-placement="bottom" :class="{
       'apos-is-triggered': active,
       'apos-has-selection': hasSelection
@@ -48,7 +48,7 @@ export default {
     width: 500px;
   }
 
-.tiptap-character-count__dialog {
+.apos-cc-insert__dialog {
   z-index: $z-index-modal;
   position: absolute;
   top: calc(100% + 5px);
@@ -56,9 +56,4 @@ export default {
   opacity: 1;
   pointer-events: none;
 }
-
-.apos-context-menu__dialog {
-  width: 500px;
-}
-
 </style>
