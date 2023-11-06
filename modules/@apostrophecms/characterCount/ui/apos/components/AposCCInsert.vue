@@ -22,7 +22,7 @@
 import characterCountMixin from '../mixins/characterCountMixin';
 
 export default {
-  name: 'TiptapCharacterCountBox',
+  name: 'AposCCInsert',
   mixins: [characterCountMixin],
   props: {
     active: {

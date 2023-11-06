@@ -30,7 +30,7 @@
 import characterCountMixin from '../mixins/characterCountMixin';
 
 export default {
-  name: 'TiptapCharacterCount',
+  name: 'AposCCToolbar',
   mixins: [characterCountMixin],
   props: {
     tool: {
