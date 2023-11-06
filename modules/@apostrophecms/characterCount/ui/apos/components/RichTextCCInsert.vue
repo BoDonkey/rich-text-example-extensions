@@ -22,7 +22,7 @@
 import characterCountMixin from '../mixins/characterCountMixin';
 
 export default {
-  name: 'AposCCInsert',
+  name: 'RichTextCCInsert',
   mixins: [characterCountMixin],
   props: {
     active: {

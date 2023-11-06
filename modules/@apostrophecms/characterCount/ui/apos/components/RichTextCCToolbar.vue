@@ -30,7 +30,7 @@
 import characterCountMixin from '../mixins/characterCountMixin';
 
 export default {
-  name: 'AposCCToolbar',
+  name: 'RichTextCCToolbar',
   mixins: [characterCountMixin],
   props: {
     tool: {
