@@ -11,7 +11,7 @@ module.exports = {
         const finalTools = {
           ...initialData.tools,
           characterCount: {
-            component: 'TiptapCharacterCount',
+            component: 'AposCCToolbar',
             label: 'CC'
           }
         };
@@ -23,7 +23,7 @@ module.exports = {
             label: 'CC',
             icon: 'eye-icon',
             description: 'Character count',
-            component: 'TiptapCharacterCountBox'
+            component: 'AposCCInsert'
         }
       };
 
