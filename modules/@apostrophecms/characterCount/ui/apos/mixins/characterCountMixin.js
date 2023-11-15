@@ -2,10 +2,7 @@ export default {
   data() {
     return {
       generation: 1,
-      triggerValidation: false,
-      docFields: {
-        data: {}
-      },
+      // triggerValidation: false,
       formModifiers: ['small', 'margin-micro'],
       totalCharactersCount: 0,
       totalWordsCount: 0
