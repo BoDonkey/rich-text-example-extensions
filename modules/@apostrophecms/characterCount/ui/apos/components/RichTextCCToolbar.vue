@@ -1,7 +1,6 @@
 <template>
   <div class="apos-cc-toolbar">
-    <AposButton type="rich-text" @click="takeAction" :class="{ 'apos-is-active': buttonActive }" :label="tool.label"
-      :modifiers="['no-border', 'no-motion']" />
+    <AposButton type="rich-text" @click="takeAction" :class="{ 'apos-is-active': buttonActive }" :label="tool.label" :modifiers="['no-border', 'no-motion']" />
     <div v-if="active" v-click-outside-element="close" class="apos-popover apos-cc-toolbar__dialog" x-placement="bottom"
       :class="{
         'apos-is-triggered': active,

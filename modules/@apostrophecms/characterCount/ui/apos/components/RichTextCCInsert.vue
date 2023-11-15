@@ -1,10 +1,9 @@
 <template>
-  <div v-if="active" v-click-outside-element="close" class="apos-popover apos-cc-insert__dialog"
-    x-placement="bottom" :class="{
-      'apos-is-triggered': active,
-      'apos-has-selection': hasSelection
-    }">
-    <AposContextMenuDialog menu-placement="bottom-start">
+  <div v-if="active" v-click-outside-element="close" class="apos-popover apos-cc-insert__dialog" x-placement="bottom" :class="{
+      'apos-is-triggered': active
+    }"
+  >
+    <AposContextMenuDialog menu-placement="top-start">
       <div class="character-count" v-if="editor">
         <h3>Document stats</h3>
         Total characters: {{ totalCharactersCount }}{{ editorLimitText }} 
@@ -33,8 +32,7 @@ export default {
   methods: {
     close() {
       if (this.active) {
-        this.$emit('done');
-        this.$emit('cancel');
+        this.$emit('close');
       }
     },
   }

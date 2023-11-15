@@ -1,5 +1,5 @@
 import { Extension } from '@tiptap/core';
-import { Plugin, TextSelection, PluginKey } from '@tiptap/pm/state';
+import { Plugin, PluginKey } from '@tiptap/pm/state';
 
 const CharacterCount = Extension.create({
   name: 'characterCount',
@@ -17,39 +17,26 @@ const CharacterCount = Extension.create({
         ({ state }) => {
           const { from, to } = state.selection;
 
-          if (from === to) return { characters: 0, words: 0 };
+          if (from === to) return 0;
 
-          const slice = state.doc.slice(from, to);
+          // Extract text for character count (no extra spaces at node boundaries)
+          const textForCharacters = state.doc.textBetween(from, to, null, '');
+          const charactersCount = textForCharacters.length;
 
-          const charactersCount = slice.content.content.reduce(
-            (count, node) => {
-              return count + node.textContent.length;
-            },
-            0
-          );
+          // Extract text for word count (with spaces at node boundaries)
+          const textForWords = state.doc.textBetween(from, to, ' ', ' ');
+          let wordsCount = textForWords
+            .split(' ')
+            .filter((word) => word !== '').length;
 
-          const wordsCount = slice.content.content.reduce((count, node) => {
-            return count + node.textContent.split(' ').length;
-          }, 0);
-
-          const lastCharacterIsSlash =
-            slice.content.lastChild.textContent.endsWith('/');
-          if (lastCharacterIsSlash) {
-            charactersCount--;
-            if (
-              slice.content.lastChild.textContent.split(' ').slice(-1)[0] ===
-              '/'
-            ) {
-              wordsCount--;
-            }
+            // if selection has an isolated slash at the end, remove it from the count
+          if (/\s\/$/.test(textForWords)) {
+            wordsCount--;
           }
 
-          if (type === 'characters') {
-            return charactersCount;
-          } else if (type === 'words') {
-            return wordsCount;
-          }
+          return type === 'characters' ? charactersCount : wordsCount;
         },
+
       getTotalCharactersCount:
         () =>
         ({ state }) => {
@@ -59,14 +46,22 @@ const CharacterCount = Extension.create({
       getTotalWordsCount:
         () =>
         ({ state }) => {
-          const text = state.doc.textContent;
-
-          return text.split(' ').reduce((count, word, index, array) => {
-            if (word === '/' && index === array.length - 1) {
-              return count - 1;
+          let wordCount = 0;
+          state.doc.descendants((node) => {
+            if (node.isText) {
+              const words = node.text.trim().split(/\s+/).filter(Boolean);
+              wordCount += words.length;
             }
-            return count + 1;
-          }, 0);
+          });
+
+          const docText = state.doc.textContent;
+          const endsWithIsolatedSlash = /\s\/$/.test(docText);
+
+          if (endsWithIsolatedSlash) {
+            wordCount = wordCount > 0 ? wordCount - 1 : 0;
+          }
+
+          return wordCount;
         }
     };
   },
