@@ -33,7 +33,7 @@ widgets: {
       ...
     ],
     typoConfig: {
-      // No longer will convert `(tm)` to ™
+      // Will no longer convert `(tm)` to ™
       trademark: false,
       // Will convert `->` to `=>`
       rightArrow: '=>'
@@ -113,7 +113,7 @@ npm install @apostrophecms/rich-text-example-extensions
 
 ## Usage
 
-Configure the blog modules in the `app.js` file:
+Configure the modules in the `app.js` file:
 
 ```javascript
 require('apostrophe')({
@@ -131,4 +131,4 @@ require('apostrophe')({
 });
 ```
 
-Enabling any of these modules will improve the rich-text-widget, making them available without additional configurations. You will only need to add the `characterCount` to the insert menu if you want it to appear there in addition to on the toolbar.
+Enabling any of these modules will improve the rich-text-widget, making them available without additional configurations. You will only need to add the `characterCount` to the toolbar or insert menu (or both!) configuration as shown above.
