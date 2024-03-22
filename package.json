@@ -1,5 +1,5 @@
 {
-  "name": "rich-text-example-extensions",
+  "name": "@apostrophecms/rich-text-example-extensions",
   "version": "1.0.0",
   "description": "Adds new functionality to the ApostropheCMS rich-text-widget",
   "main": "index.js",
