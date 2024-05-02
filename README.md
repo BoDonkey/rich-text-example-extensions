@@ -119,7 +119,7 @@ Configure the modules in the `app.js` file:
 require('apostrophe')({
   shortName: 'my-project',
   // Activate the bundle -> subject to change with renaming/ownership change
-  bundles: [ 'rich-text-example-extensions' ],
+  bundles: [ '@apostrophecms/rich-text-example-extensions' ],
   modules: {
     // The typography module
     '@apostrophecms/typography': {},
